@@ -161,7 +161,8 @@ bool parking_allocate_spot(parking_status_t* status, const char* plate, floor_id
     
     // Se não encontrou no andar preferido, tenta outros andares
     for (int floor = 0; floor < MAX_FLOORS; floor++) {
-        if (floor == preferred_floor) continue; // Já tentou
+        // Cast explícito para evitar warning de signed/unsigned ou enum/int
+        if ((floor_id_t)floor == preferred_floor) continue; // Já tentou
         
         if (status->floors[floor].blocked || status->floors[floor].free_spots == 0) {
             continue;
