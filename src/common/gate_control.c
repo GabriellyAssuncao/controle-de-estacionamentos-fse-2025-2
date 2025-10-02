@@ -9,10 +9,6 @@
 #include <pthread.h>
 #include <unistd.h>
 
-// =============================================================================
-// ESTRUTURAS INTERNAS
-// =============================================================================
-
 typedef struct {
     gate_state_t state;
     uint8_t motor_pin;
@@ -26,20 +22,12 @@ typedef struct {
     gate_type_t gate_type;
 } gate_control_t;
 
-// =============================================================================
-// VARIÁVEIS GLOBAIS
-// =============================================================================
-
 static gate_control_t entry_gate = {0};
 static gate_control_t exit_gate = {0};
 static bool gates_initialized = false;
 
-// =============================================================================
-// FUNÇÕES INTERNAS
-// =============================================================================
-
 /**
- * @brief Thread de controle de uma cancela específica
+ * @brief 
  */
 static void* gate_control_thread(void* arg) {
     gate_control_t* gate = (gate_control_t*)arg;
@@ -68,7 +56,7 @@ static void* gate_control_thread(void* arg) {
                     gate->last_operation = time(NULL);
                     gate->operation_count++;
                     LOG_INFO("GATE", "Cancela %s ABERTA (operação #%d)", 
-                             gate_name, gate->operation_count);
+                             gate_nameF, gate->operation_count);
                 }
                 
                 // Timeout de segurança
