@@ -55,8 +55,8 @@ static void* gate_control_thread(void* arg) {
                     gate->state = GATE_STATE_OPEN;
                     gate->last_operation = time(NULL);
                     gate->operation_count++;
-                    LOG_INFO("GATE", "Cancela %s ABERTA (operação #%d)", 
-                             gate_nameF, gate->operation_count);
+                   LOG_INFO("GATE", "Cancela %s ABERTA (operação #%d)", 
+         gate_name, gate->operation_count);
                 }
                 
                 // Timeout de segurança

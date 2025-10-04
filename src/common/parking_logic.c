@@ -14,7 +14,6 @@ static const spot_type_t TERREO_SPOT_TYPES[SPOTS_TERREO] = {
     SPOT_TYPE_COMUM,    
     SPOT_TYPE_COMUM     
 };
-)
 static const spot_type_t ANDAR1_SPOT_TYPES[SPOTS_ANDAR1] = {
     SPOT_TYPE_PNE,      
     SPOT_TYPE_PNE,      

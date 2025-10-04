@@ -1,39 +1,28 @@
-/**
- * @file system_config.h
- * @brief Configurações do sistema de controle de estacionamento
- */
-
 #ifndef SYSTEM_CONFIG_H
 #define SYSTEM_CONFIG_H
 
 #include <stdint.h>
 
- 
 #define SYSTEM_VERSION "1.0"
 #define MAX_FLOORS 3
 
-// Vagas por andar e tipo
-#define SPOTS_TERREO 4          // Térreo: 2 bits endereço (0-3)
-#define SPOTS_ANDAR1 8          // 1º Andar: 3 bits endereço (0-7)
-#define SPOTS_ANDAR2 8          // 2º Andar: 3 bits endereço (0-7)
-#define MAX_PARKING_SPOTS_PER_FLOOR 8  // Máximo possível
+#define SPOTS_TERREO 4
+#define SPOTS_ANDAR1 8
+#define SPOTS_ANDAR2 8
+#define MAX_PARKING_SPOTS_PER_FLOOR 8
 
 #define TOTAL_PARKING_SPOTS (SPOTS_TERREO + SPOTS_ANDAR1 + SPOTS_ANDAR2)
 
-// Tipos de vagas
 typedef enum {
-    SPOT_TYPE_PNE = 0,       
-    SPOT_TYPE_IDOSO = 1,     
-    SPOT_TYPE_COMUM = 2     
+    SPOT_TYPE_PNE = 0,
+    SPOT_TYPE_IDOSO = 1,
+    SPOT_TYPE_COMUM = 2
 } spot_type_t;
 
- 
-#define PRICE_PER_MINUTE_CENTS 15   
-
- 
+#define PRICE_PER_MINUTE_CENTS 15
 #define MIN_PLATE_CONFIDENCE 70
-#define LOW_PLATE_CONFIDENCE 60  
- 
+#define LOW_PLATE_CONFIDENCE 60
+
 #define SERVER_CENTRAL_PORT 8080
 #define SERVER_TERREO_PORT 8081
 #define SERVER_ANDAR1_PORT 8082
@@ -43,10 +32,8 @@ typedef enum {
 #define MAX_CLIENTS 10
 #define BUFFER_SIZE 1024
 
-// Timeouts de rede (em segundos)
 #define TCP_CONNECT_TIMEOUT 5
 #define TCP_RECEIVE_TIMEOUT 10
-
 
 #define MODBUS_DEVICE "/dev/ttyUSB0"
 #define MODBUS_BAUDRATE 115200
@@ -57,20 +44,18 @@ typedef enum {
 #define MODBUS_ADDR_CAMERA_SAIDA   0x12
 #define MODBUS_ADDR_DISPLAY        0x20
 
-#define MODBUS_MATRICULA "7574"
-// Registros das câmeras LPR
+#define MODBUS_MATRICULA "1234"
+
 #define LPR_REG_STATUS      0
 #define LPR_REG_TRIGGER     1
-#define LPR_REG_PLATE       2   
+#define LPR_REG_PLATE       2
 #define LPR_REG_CONFIDENCE  6
 #define LPR_REG_ERROR       7
-
 
 #define LPR_STATUS_READY       0
 #define LPR_STATUS_PROCESSING  1
 #define LPR_STATUS_OK          2
 #define LPR_STATUS_ERROR       3
-
 
 #define DISPLAY_REG_TERREO_PNE      0
 #define DISPLAY_REG_TERREO_IDOSO    1
@@ -86,33 +71,27 @@ typedef enum {
 #define DISPLAY_REG_CARROS_ANDAR2   11
 #define DISPLAY_REG_FLAGS           12
 
-
 #define DISPLAY_FLAG_LOTADO_GERAL   (1 << 0)
 #define DISPLAY_FLAG_LOTADO_ANDAR1  (1 << 1)
 #define DISPLAY_FLAG_LOTADO_ANDAR2  (1 << 2)
 
-
 #define GPIO_TERREO_ENDERECO_01 17
 #define GPIO_TERREO_ENDERECO_02 18
- 
 #define GPIO_TERREO_SENSOR_VAGA 8
-
 #define GPIO_TERREO_SENSOR_ABERTURA_ENTRADA 7
 #define GPIO_TERREO_SENSOR_FECHAMENTO_ENTRADA 1
-#define GPIO_TERREO_MOTOR_ENTRADA 23  // CORRIGIDO: era ENDERECO_03
-
+#define GPIO_TERREO_MOTOR_ENTRADA 23
 #define GPIO_TERREO_SENSOR_ABERTURA_SAIDA 12
 #define GPIO_TERREO_SENSOR_FECHAMENTO_SAIDA 25
 #define GPIO_TERREO_MOTOR_SAIDA 24
 
- 
 #define GPIO_ANDAR1_ENDERECO_01 16
 #define GPIO_ANDAR1_ENDERECO_02 20
 #define GPIO_ANDAR1_ENDERECO_03 21
 #define GPIO_ANDAR1_SENSOR_VAGA 27
 #define GPIO_ANDAR1_SENSOR_PASSAGEM_1 22
 #define GPIO_ANDAR1_SENSOR_PASSAGEM_2 11
- 
+
 #define GPIO_ANDAR2_ENDERECO_01 0
 #define GPIO_ANDAR2_ENDERECO_02 5
 #define GPIO_ANDAR2_ENDERECO_03 6
@@ -120,12 +99,11 @@ typedef enum {
 #define GPIO_ANDAR2_SENSOR_PASSAGEM_1 19
 #define GPIO_ANDAR2_SENSOR_PASSAGEM_2 26
 
- 
-#define GPIO_SCAN_INTERVAL_MS 100     
-#define GATE_TIMEOUT_MS 5000          
-#define MODBUS_POLL_INTERVAL_MS 100   
-#define STATUS_UPDATE_INTERVAL_MS 1000  
- 
+#define GPIO_SCAN_INTERVAL_MS 100
+#define GATE_TIMEOUT_MS 5000
+#define MODBUS_POLL_INTERVAL_MS 100
+#define STATUS_UPDATE_INTERVAL_MS 1000
+
 #define LOG_DIR "./logs"
 #define LOG_FILE_MAX_SIZE_MB 10
 #define LOG_FILE_MAX_COUNT 5
@@ -139,7 +117,7 @@ typedef enum {
 } log_level_t;
 
 #define DEFAULT_LOG_LEVEL LOG_LEVEL_INFO
- 
+
 typedef enum {
     FLOOR_TERREO = 0,
     FLOOR_ANDAR1 = 1,
@@ -155,14 +133,14 @@ typedef enum {
 } gate_state_t;
 
 typedef struct {
-    uint8_t address_pins[3];   
-    uint8_t num_address_bits;  
-    uint8_t sensor_pin;        
-    uint8_t num_spots;         
+    uint8_t address_pins[3];
+    uint8_t num_address_bits;
+    uint8_t sensor_pin;
+    uint8_t num_spots;
 } gpio_floor_config_t;
 
- static const gpio_floor_config_t GPIO_CONFIGS[MAX_FLOORS] = {
-     {
+static const gpio_floor_config_t GPIO_CONFIGS[MAX_FLOORS] = {
+    {
         .address_pins = {GPIO_TERREO_ENDERECO_01, GPIO_TERREO_ENDERECO_02, 0},
         .num_address_bits = 2,
         .sensor_pin = GPIO_TERREO_SENSOR_VAGA,
@@ -174,7 +152,6 @@ typedef struct {
         .sensor_pin = GPIO_ANDAR1_SENSOR_VAGA,
         .num_spots = SPOTS_ANDAR1
     },
-    
     {
         .address_pins = {GPIO_ANDAR2_ENDERECO_01, GPIO_ANDAR2_ENDERECO_02, GPIO_ANDAR2_ENDERECO_03},
         .num_address_bits = 3,
@@ -183,4 +160,4 @@ typedef struct {
     }
 };
 
-#endif  
+#endif
