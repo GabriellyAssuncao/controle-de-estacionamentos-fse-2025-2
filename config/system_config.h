@@ -45,6 +45,7 @@
 #define MODBUS_BAUDRATE 115200
 #define MODBUS_TIMEOUT_MS 500
 #define MODBUS_MAX_RETRIES 3
+#define MODBUS_MATRICULA "5717" 
 
 // Endereços dos dispositivos MODBUS
 #define MODBUS_ADDR_CAMERA_IN 0x11
